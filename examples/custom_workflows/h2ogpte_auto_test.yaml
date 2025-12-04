@@ -1,7 +1,7 @@
 name: h2oGPTe Agent Auto Test Generation
 
 on:
-  pull_request:
+  pull_request_target:
     branches: [main]
     types: [opened, synchronize]
 
@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: h2oGPTe Auto Test Generator
         id: h2ogpte-agent-assistant
-        uses: h2oai/h2ogpte-action@v0.2.0-beta
+        uses: h2oai/h2ogpte-action@v0.2.1-beta
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           h2ogpte_api_key: ${{ secrets.H2OGPTE_API_KEY }}

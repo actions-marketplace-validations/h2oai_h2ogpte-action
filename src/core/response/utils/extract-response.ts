@@ -49,8 +49,26 @@ export function extractFinalAgentResponse(input: string): string {
     textBeforeTitle = finalSection.substring(0, titleIndex);
   }
 
+  // Remove everything before `## ⚡️ TL;DR`
+  let tlDrSection = textBeforeTitle;
+  const tlDrIndex = tlDrSection.indexOf("## ⚡️ TL;DR");
+  if (tlDrIndex !== -1) {
+    tlDrSection = tlDrSection.substring(tlDrIndex);
+  }
+
   // Remove agent metadata and clean up the whitespace in the text
-  const cleanedText = textBeforeTitle
+  // First, preserve code blocks by temporarily replacing them
+  const codeBlockRegex = /```[\s\S]*?```/g;
+  const codeBlocks: string[] = [];
+  let codeBlockIndex = 0;
+
+  const textWithPlaceholders = tlDrSection.replace(codeBlockRegex, (match) => {
+    codeBlocks.push(match);
+    return `__CODE_BLOCK_${codeBlockIndex++}__`;
+  });
+
+  // Clean up whitespace in non-code-block text
+  let cleanedText = textWithPlaceholders
     .replace(/\*\*Completed LLM call in.*?\*\*/g, "")
     .replace(/\*\* \[.*?\] .*?\*\*/g, "")
     .replace(/\*\*Executing python code blocks\*\*/g, "")
@@ -59,14 +77,18 @@ export function extractFinalAgentResponse(input: string): string {
       "",
     )
     .replace(/\s*\[citation:\s*\d+\]\s*/g, " ")
-    .replace(/\s+\./g, ".")
-    .replace(/ {2,}/g, " ")
-    .replace(/\n{2,}/g, "\n")
+    .replace(/\s+([.,!?;:])/g, "$1")
+    .replace(/[ \t]{2,}/g, " ")
     .replace(/^\n+|\n+$/g, "")
     .split("\n")
-    .map((line) => line.trim())
+    .map((line) => line.replace(/\s+$/, ""))
     .join("\n")
     .trim();
+
+  // Restore code blocks (preserving their original formatting including tabs)
+  codeBlocks.forEach((block, index) => {
+    cleanedText = cleanedText.replace(`__CODE_BLOCK_${index}__`, block);
+  });
 
   return cleanedText;
 }
