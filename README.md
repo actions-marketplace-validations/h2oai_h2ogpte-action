@@ -28,16 +28,7 @@ Once installed, simply mention `@h2ogpte` in any comment, issue, or pull request
 
 The agent will automatically analyze your code and provide intelligent feedback.
 
-## ⚙️ Inputs
-
-| Input             | Description                                                                                | Required | Default Value                                               |
-| ----------------- | ------------------------------------------------------------------------------------------ | -------- | ----------------------------------------------------------- |
-| github_token      | Github access token.                                                                       | Yes      | Assigned automatically by GitHub Actions                    |
-| h2ogpte_api_key   | h2oGPTe API Key from your h2oGPTe instance (e.g., <https://h2ogpte.genai.h2o.ai/api>)      | Yes      | –                                                           |
-| h2ogpte_api_base  | h2oGPTe API base url address (no trailing slash)                                           | No       | <https://h2ogpte.genai.h2o.ai>                              |
-| github_api_url    | GitHub API base url (no trailing slash)                                                    | No       | <https://api.github.com>                                    |
-| github_server_url | GitHub server base url (no trailing slash)                                                 | No       | <https://github.com>                                        |
-| slash_commands    | JSON string defining slash commands. Each command should have a `name` and `prompt` field. | No       | See [Slash Commands](docs/USAGE.md#-slash-commands) section |
+For all configuration options, see the **[Configuration](docs/CONFIGURATION.md#configuration-options)** guide.
 
 ## 📚 Examples
 
@@ -58,9 +49,11 @@ See [examples](examples/) for more workflow configurations. Or, check out our [u
 
 ## ✅ Requirements
 
-h2oGPTe Action v0.2.2-beta requires h2oGPTe versions 1.6.31 through 1.6.47.
+h2oGPTe Action v0.3.1-beta requires h2oGPTe versions 1.6.46 through 1.6.57.
 
 This version range has been tested and verified for compatibility.
+
+For GitHub Enterprise Server, see [Configuring MCP for GHES](docs/CONFIGURATION.md#configuring-mcp-for-github-enterprise-server-ghes).
 
 ## 📄 License
 
