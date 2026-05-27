@@ -113,7 +113,7 @@ If you plan to use a custom GitHub App, personal access token, or your own authe
 
 ## Compatibility
 
-Currently, only **h2ogpte version >= 1.6.46, <= 1.6.59** is supported. By default, the action uses
+Currently, only **h2ogpte version >= 1.6.46, <= 1.6.60** is supported. By default, the action uses
 `https://h2ogpte.genai.h2o.ai` as the API base. If you wish to use a different h2ogpte environment, you need to:
 
 1. Add your h2oGPTe server's base URL as a repository secret named `H2OGPTE_API_BASE`
